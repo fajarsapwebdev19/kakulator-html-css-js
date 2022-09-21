@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <title>Kakulator Sederhana - Fajar Saputra</title>
+</head>
+
+<body>
+    <div class="mb-5"></div>
+    <div class="container mt-4 col-sm-4">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h4 class="fas fa-calculator"></h4>
+                        <h1>Kalkulator Sederhana</h1>
+                    </div>
+                    <div class="mt-4"></div>
+
+                    <div class="container">
+                        <form name="calc" autocomplete="off">
+                            <div class="form-group">
+                                <label>Bilangan Pertama</label>
+                                <input type="text" class="form-control" name="bil1"
+                                    onkeypress="return inputangka(event, '.0123456789')">
+                            </div>
+                            <div class="form-group">
+                                <label>Bilangan Kedua</label>
+                                <input type="text" class="form-control" name="bil2"
+                                    onkeypress="return inputangka(event, '.0123456789')">
+                            </div>
+                            <div class="form-group">
+                                <label>Jumlah</label>
+                                <input type="text" class="form-control" name="jumlah" value=""
+                                    onkeypress="return inputangka(event, '')">
+                            </div>
+                            <input type="button" name="submit" class="btn
+                                    btn-primary" onclick="tambah()" value="Tambah">
+                            <input type="button" name="submit" class="btn
+                                    btn-primary" onclick="kurang()" value="Kurang">
+                            <input type="button" name="submit" class="btn
+                                    btn-primary" onclick="kali()" value="Kali">
+                            <input type="button" name="submit" class="btn
+                                    btn-primary" onclick="bagi()" value="Bagi">
+                            <input type="reset" class="btn btn-danger" value="Reset">
+                        </form>
+                        <div class="mb-3"></div>
+                        <div class="text-small text-center">&copy; Fajar Saputra | 2020013 | Sistem Informasi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // input hanya angka
+        function getkey(e) {
+            if (window.event)
+                return window.event.keyCode;
+            else if (e)
+                return e.which;
+            else
+                return null;
+        }
+
+        function inputangka(e, goods, field) {
+            var key, keychar;
+            key = getkey(e);
+            if (key == null) return true;
+
+            keychar = String.fromCharCode(key);
+            keychar = keychar.toLowerCase();
+            goods = goods.toLowerCase();
+
+            // check goodkeys
+            if (goods.indexOf(keychar) != -1)
+                return true;
+            // control keys
+            if (key == null || key == 0 || key == 8 || key == 9 || key == 27)
+                return true;
+
+            if (key == 13) {
+                var i;
+                for (i = 0; i < field.form.elements.length; i++)
+                    if (field == field.form.elements[i])
+                        break;
+                i = (i + 1) % field.form.elements.length;
+                field.form.elements[i].focus();
+                return false;
+            };
+            // else return false
+            return false;
+        }
+
+        // cek apabila inputan kosong
+        function cek() {
+            if (calc.bil1.value == "" || calc.bil2.value == "") {
+                alert('Tidak Ada Input Angka');
+                exit;
+            }
+        }
+
+        // tambah
+        function tambah() {
+            cek();
+            a = eval(calc.bil1.value);
+            b = eval(calc.bil2.value);
+            c = a + b
+            calc.jumlah.value = c;
+        }
+
+        // kurang
+        function kurang() {
+            cek();
+            a = eval(calc.bil1.value);
+            b = eval(calc.bil2.value);
+            c = a - b
+            calc.jumlah.value = c;
+        }
+
+        // kali
+        function kali() {
+            cek();
+            a = eval(calc.bil1.value);
+            b = eval(calc.bil2.value);
+            c = a * b
+            calc.jumlah.value = c;
+        }
+
+        // bagi
+        function bagi() {
+            cek();
+            a = eval(calc.bil1.value);
+            b = eval(calc.bil2.value);
+            c = a / b
+            calc.jumlah.value = c;
+        }
+    </script>
+</body>
+
+</html>
